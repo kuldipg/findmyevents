@@ -8,6 +8,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
+  allevents: [],
   events: [],
   event: {},
 };
@@ -18,11 +19,12 @@ function eventReducer(state = initialState, action) {
       return {
         ...state,
         events: action.payload,
+        allevents: action.payload
       };
     case SEARCH_EVENTS:
       let searchedEvents;
       if(action.searchtext !== "") {
-        searchedEvents = state.events.filter(element => {
+        searchedEvents = state.allevents.filter(element => {
           return element.name.toLowerCase().includes(action.searchtext.toLowerCase());
         })
       } else {
