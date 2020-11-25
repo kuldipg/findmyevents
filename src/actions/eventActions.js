@@ -4,6 +4,7 @@ import {
   DELETE_EVENT,
   GET_EVENT,
   UPDATE_EVENT,
+  SEARCH_EVENTS
 } from "./types";
 
 import axios from "axios";
@@ -15,6 +16,23 @@ export const getEvents = () => async (dispatch) => {
     type: GET_EVENTS,
     payload: res.data,
   });
+};
+
+export const searchEvents = (searchtext) => async (dispatch) => {
+  if(searchtext === "")  {
+    const res = await axios.get(ENV.databaseAPI.GETEVENTS_URL); 
+    dispatch({
+      type: SEARCH_EVENTS,
+      payload: res.data,
+      searchtext: searchtext
+    });
+  } else {
+    dispatch({
+      type: SEARCH_EVENTS,
+      payload: [],
+      searchtext: searchtext
+    });
+  }  
 };
 
 export const getEvent = (id) => async (dispatch) => {
